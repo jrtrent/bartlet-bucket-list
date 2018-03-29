@@ -1,0 +1,68 @@
+
+html {
+    border: 1px grey solid;
+}
+
+.head-1 {
+    font-size: 65px;
+    height: 1.5em;
+
+}
+
+.pure-g {
+    background-color: darkolivegreen;
+    border: 1px solid gray;
+}
+
+.container {
+    background-color: dodgerblue; 
+    margin: 0 auto;
+    width: 100%;
+    /* max-width: 100px; */
+    clear: both;
+}
+
+.body {
+    /* width: 600px; */
+    font-size: 50px;
+    height: 8em;
+    background-color: #333;
+    color: white;
+    border: 1px solid white;
+
+}
+
+.footer {
+    font-size: 45px;
+    height: 2em;
+    background-color: gold;
+    margin: .25em;
+    /* align-content: center; */
+}
+
+.custom-restricted {
+    height: 160px;
+    width: 150px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    background-color: darkgrey;
+}
+
+.checkbox, .radio {
+    margin: 1em;
+    width: 90%;
+}
+
+
+/* // Mixin
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Usage
+.container {
+  width: 940px;
+  .center-block;
+} */
