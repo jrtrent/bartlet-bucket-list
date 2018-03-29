@@ -66,3 +66,6 @@ html {
   width: 940px;
   .center-block;
 } */
+.hide {
+    display: none;
+}
