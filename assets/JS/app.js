@@ -29,18 +29,18 @@ $(document).ready(() => {
     })
 
     // Sign-out event
-    $('#sign-out').on('click', event => {
-        firebase.auth().signOut();
-    })
+    // $('#sign-out').on('click', event => {
+    //     firebase.auth().signOut();
+    // })
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
             console.log(firebaseUser + 'logged in');
-            $('#sign-out').removeClass('hide');
+            // $('#sign-out').removeClass('hide');
         } else {
             console.log('not logged in')
-            $('#sign-out').addClass('hide');
+            // $('#sign-out').addClass('hide');
         }
     })
 
