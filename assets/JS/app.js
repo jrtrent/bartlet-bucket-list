@@ -11,6 +11,7 @@ firebase.initializeApp(config);
 $(document).ready(() => {
     // Sign-in event
     $('#sign-in').on('click', event => {
+        event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val();
         var auth = firebase.auth();
@@ -20,6 +21,7 @@ $(document).ready(() => {
 
     // Sign-up event
     $('#sign-up').on('click', event => {
+        event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val();
         var auth = firebase.auth();
