@@ -3,60 +3,82 @@ html {
     border: 1px grey solid;
 }
 
-.head-1 {
-    font-size: 65px;
-    height: 1.5em;
-}
-
-.pure-g {
-    background-color: lightgrey;
-    border: 1px solid gray;
-}
-
 .container {
-    background-color: lightblue; 
+    /* background-color: lightblue;  */
     margin: 0 auto;
     width: 100%;
     /* max-width: 100px; */
     clear: both;
+    background-image: url("../images/pink_rice.png");
 }
+.head-1 {
+    /* padding-top: .5em; */
+    font-size: 24px;
+    height: 3em;
+}
+
+.pure-u-2-3 {
+    background-size: 115%;
+    background-image: url("../images/image7.jpg");
+    
+}
+
+.pure-u-1-3 {
+    /* background-position-y: 10px; */
+    background-size: 225%;
+    background-image: url("../images/image2.jpg");
+    
+
+}
+
+.pure-g {
+    /* background-color: lightgrey; */
+    border: 1px solid gray;
+    height: 40em;
+}
+
 
 .park-results {
     /* width: 600px; */
     font-size: 12px;
-<<<<<<< HEAD
-    height: 8em;
-    background-color: rgba(51, 51, 51, 0.514);
-=======
     height: 100%;
     background-color: #333;
->>>>>>> 2e09655e53a70cda20e0b70757bbff45dbb32345
     color: white;
     border: 1px solid white;
-
+    
 }
 
-.footer {
-    font-size: 12px;
-    height: 2em;
+.pure-g-footer {
+    font-size: 18px;
+    height: 4em;
     background-color: lightgray;
-    margin: .25em;
+    /* margin: .25em; */
+    width: 100%;
+    padding-top: 1em;
+    padding-left: 15em;
 }
 
-.custom-restricted {
+/* .custom-restricted {
+    margin-top: 25px;
     height: 160px;
     width: 150px;
     border: 1px solid gray;
     border-radius: 4px;
     background-color: darkgrey;
-}
+} */
 
 .checkbox, .radio {
+    padding-top: 2em;
     margin: 1em;
     width: 90%;
 }
 
-
 .hide {
     display: none;
 }
+
+.sidebar-radial {
+    color: white;
+}
+
+
