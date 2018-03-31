@@ -48,7 +48,7 @@ $(document).ready(() => {
             UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
             $("#bucket-list").empty();
-            if (!database.ref(){
+            if (!database.ref()){
                 database.ref('users/' + userID).set({
                     username: name,
                     email: email
