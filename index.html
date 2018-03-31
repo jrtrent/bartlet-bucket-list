@@ -3,7 +3,6 @@
 
 <head>
     <title>Bartlett's Bucket List</title>
-    <link rel="icon" href="assets/Images/Logo.png" type="image/gif" sizes="16x16">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,90 +30,108 @@
 <body>
     <div class="container">
         <div class="pure-u-1">
-            <div class="head-1">
-                <img src="assets/images/Logo.png" alt="Mountain View" height="72" width="72"> National Park Bucketlist</div>
+            <div class="head-1">This is the Header</div>
         </div>
 
 
         <div class="pure-g">
             <div class="pure-u-2-3">
                 <div class="body">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownstates" data-toggle="dropdown" aria-expanded="false">
+                        US States
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="statelist"></div>
+
+
                 </div>
             </div>
-            
-            
-            <!-- Middle B -->
-            
-            <!-- <div class="pure-u-1-5">
-                <form class="pure-form pure-input-rounded">
-                    <input type="search" placeholder=""> Search
-                </form>
-                <div class="middle-image">.....</div>
-            </div> -->
-            
-            
-            <!-- SIDERBAR BUTTONS -->
             <div class="pure-u-1-3">
-                <div class="sidebar-image">
-                    
-                    <!-- CHECKBOX IN SIDEBAR -->
-                    
-                    <form class="pure-form pure-form-stacked">
-                        <fieldset>
-                            <legend>Sign-In</legend>
-        
-                            <label for="email">Email</label>
-                            <input id="email" type="email" placeholder="Email">
-        
-                            <label for="password">Password</label>
-                            <input id="password" type="password" placeholder="Password">
-        
-                            <button id="sign-in" type="submit" class="pure-button pure-button-primary">Sign in</button>
-                            <button id="sign-up" type="submit" class="button-secondary pure-button">Sign up</button>
-        
-                        </fieldset>
-                    </form>
-                    
-                </div>
-            </div>
-        </div>
-        </div>
 
-
-
-        <!-- <footer> -->
-        <footer>
-            <div class="pure-g-footer">
-                <div class="pure-u-1">
-                    <div class="pure-menu pure-menu-horizontal">
-                        <ul class="pure-menu-list">
-                            <li class="pure-menu-item pure-menu-selected">
-                                <a href="#" class="pure-menu-link">Home</a>
+                <!-- SIDERBAR BUTTONS -->
+                <ul class="pure-menu-list">
+                    <button>
+                        <li class="pure-menu-item pure-menu-selected">
+                            <a href="#" class="pure-menu-link">Flickr</a>
+                        </li>
+                    </button>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link">Messenger</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link">Sports</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link">Finance</a>
+                    </li>
+                    <li class="pure-menu-item pure-menu-has-children">
+                        <a href="#" id="menuLink1" class="pure-menu-link">More</a>
+                        <ul class="pure-menu-children">
+                            <li class="pure-menu-item">
+                                <a href="#" class="pure-menu-link">Autos</a>
                             </li>
-                        </ul>
-                        <ul class="pure-menu-list">
-                            <li class="pure-menu-item pure-menu-selected">
-                                <a href="#" class="pure-menu-link">Facebook</a>
-                            </li>
-                        </ul>
-                        <ul class="pure-menu-list">
-                            <li class="pure-menu-item pure-menu-selected">
-                                <a href="#" class="pure-menu-link">Yahoo</a>
-                            </li>
-                        </ul>
-                        <ul class="pure-menu-list">
-                            <li class="pure-menu-item pure-menu-selected">
-                                <a href="#" class="pure-menu-link">Twitter</a>
-                            </li>
-                        </ul>
-                        <ul class="pure-menu-list">
-                            <li class="pure-menu-item pure-menu-selected">
+                            <li class="pure-menu-item">
                                 <a href="#" class="pure-menu-link">Flickr</a>
                             </li>
+                            <li class="pure-menu-item pure-menu-has-children">
+                                <a href="#" id="menuLink1" class="pure-menu-link">Even More</a>
+                                <ul class="pure-menu-children">
+                                    <li class="pure-menu-item">
+                                        <a href="#" class="pure-menu-link">Foo</a>
+                                    </li>
+                                    <li class="pure-menu-item">
+                                        <a href="#" class="pure-menu-link">Bar</a>
+                                    </li>
+                                    <li class="pure-menu-item">
+                                        <a href="#" class="pure-menu-link">Baz</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
-                    </div>
+                    </li>
+                </ul>
+
+                <!-- CHECKBOX IN SIDEBAR -->
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value=""> Option one is this and that&mdash;be sure to include why it's great
+                    </label>
                 </div>
+                <div class="checkbox disabled">
+                    <label>
+                        <input type="checkbox" value="" disabled> Option two is disabled
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Option two can be something else and selecting it will deselect option one
+                    </label>
+                </div>
+                <div class="radio disabled">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled> Option three is disabled
+                    </label>
+                </div>
+
             </div>
+        </div>
+
+
+
+        <!-- <div class="cinder-block">     -->
+        <div class="pure-g">
+            <div class="pure-u-5-5">
+                <div class="footer">This is the Footer</div>
+            </div>
+        </div>
+        <footer>
+
         </footer>
     </div>
 
