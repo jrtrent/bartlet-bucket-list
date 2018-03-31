@@ -8,7 +8,6 @@ var config = {
     messagingSenderId: "129357236055"
 };
 firebase.initializeApp(config);
-
 $(document).ready(() => {
     // Sign-in event
     $('#sign-in').on('click', event => {
@@ -46,4 +45,37 @@ $(document).ready(() => {
         }
     })
 
+})
+var parkcode = "acad"//$(this).val();
+var queryURL = "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
+
+$.ajax({
+    url: queryURL,
+    method: "GET"
+})
+
+.then(function(response) {
+    console.log(data.parkname);
+    var park = $("<div>");
+    var parkname = data.fullname;
+    var city = data.addresses.city;
+    var state = data.address.statecode;
+    $("#parkinformation").append(parkname +"<br>"+ city + ", " + state)
+
+})
+   
+$.ajax({
+    url: queryURL,
+    menthod: "GET"
+})
+
+.then(function(videoresponse){
+    var video = $("<iframe>");
+    var videourl = data.embed_url;
+    var vidieoid =data.vieo_id;
+    vidieoid.attr({
+        src: "videourl",
+        width: "200px",
+        height: "100px",
+    });
 })
