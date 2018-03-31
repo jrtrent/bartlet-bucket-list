@@ -1,5 +1,6 @@
-// Initialize Firebase
+
 $(document).ready(() => {
+    // Initialize Firebase
     var config = {
         apiKey: "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg",
         authDomain: "bartlet-s-bucket-list.firebaseapp.com",
@@ -8,7 +9,12 @@ $(document).ready(() => {
         storageBucket: "bartlet-s-bucket-list.appspot.com",
         messagingSenderId: "129357236055"
     };
+    
     firebase.initializeApp(config);
+
+    var database = firebase.database();
+    var userID = "";
+
     // Sign-in event
     $('#sign-in').on('click', event => {
         event.preventDefault();
@@ -39,8 +45,17 @@ $(document).ready(() => {
         console.log(firebaseUser);
         if (firebaseUser) {
             console.log(firebaseUser + 'logged in');
-            console.log('UID', firebaseUser.uid)
+            console.log('UID', firebaseUser.uid);
+            UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
+            $("#bucket-list").empty();
+            if (!database.ref(){
+                database.ref('users/' + userID).set({
+                    username: name,
+                    email: email
+                    //some more user data
+                  });
+            }
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
@@ -48,6 +63,12 @@ $(document).ready(() => {
     })
 
 })
+
+// Populate the sidebar with bucket list
+function WriteSidebar(bucketListDB, UID) {
+
+}
+
 var parkcode = "acad"//$(this).val();
 var queryURL = "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
 
