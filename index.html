@@ -37,20 +37,12 @@
         <div class="pure-g">
             <div class="pure-u-2-3">
                 <div class="body">
-                    <form class="pure-form pure-form-stacked">
-                        <fieldset>
-                            <legend>A Stacked Form</legend>
-
-                            <label for="email">Email</label>
-                            <input id="email" type="email" placeholder="Email">
-
-                            <label for="password">Password</label>
-                            <input id="password" type="password" placeholder="Password">
-                            
-                            <button id="sign-in" type="submit" class="pure-button pure-button-primary">Sign in</button>
-                            <button id="sign-up" type="submit" class="button-secondary pure-button">Sign up</button>
-                        </fieldset>
-                    </form>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownstates" data-toggle="dropdown" aria-expanded="false" >
+                        US States
+                    </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="statelist"></div>
+                
+                    
                 </div>
             </div>
             <div class="pure-u-1-3">
