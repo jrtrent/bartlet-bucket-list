@@ -1,14 +1,14 @@
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg",
-    authDomain: "bartlet-s-bucket-list.firebaseapp.com",
-    databaseURL: "https://bartlet-s-bucket-list.firebaseio.com",
-    projectId: "bartlet-s-bucket-list",
-    storageBucket: "bartlet-s-bucket-list.appspot.com",
-    messagingSenderId: "129357236055"
-};
-firebase.initializeApp(config);
 $(document).ready(() => {
+    var config = {
+        apiKey: "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg",
+        authDomain: "bartlet-s-bucket-list.firebaseapp.com",
+        databaseURL: "https://bartlet-s-bucket-list.firebaseio.com",
+        projectId: "bartlet-s-bucket-list",
+        storageBucket: "bartlet-s-bucket-list.appspot.com",
+        messagingSenderId: "129357236055"
+    };
+    firebase.initializeApp(config);
     // Sign-in event
     $('#sign-in').on('click', event => {
         event.preventDefault();
@@ -36,8 +36,10 @@ $(document).ready(() => {
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
+        console.log(firebaseUser);
         if (firebaseUser) {
             console.log(firebaseUser + 'logged in');
+            console.log('UID', firebaseUser.uid)
             // $('#sign-out').removeClass('hide');
         } else {
             console.log('not logged in')
