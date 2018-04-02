@@ -48,14 +48,22 @@ html {
     
 }
 
-.pure-g-footer {
-    font-size: 18px;
-    height: 4em;
-    background-color: lightgray;
-    /* margin: .25em; */
+.footer-image {
+
+    height: auto;
+    background-image: url("..//Images/image8.jpg");
     width: 100%;
-    padding-top: 1em;
-    padding-left: 15em;
+    /* padding-top: 1em;
+    padding-left: 15em; */
+}
+.txt-railway {
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.center-block a {
+   margin-bottom: 50px; 
 }
 
 /* .custom-restricted {
