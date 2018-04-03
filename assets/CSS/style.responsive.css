@@ -19,10 +19,9 @@ html {
 
 .pure-u-2-3 {
     background-size: 100%;
-    background-image: url("../images/image.webp");
+    background-image: url("../images/image.webp"); 
     /* background-image: url("../images/image7.jpg");
     background-position-y: -10px; */
-    
 }
 
 .pure-u-1-3 {
@@ -30,7 +29,13 @@ html {
     background-size: 225%;
     background-image: url("../images/image2.jpg");
     color: white;
+    max-width: 100%;
+    height: auto;
+}
 
+.pure-u-1-float {
+    flex-flow: wrap;
+    /* float: inherit; */
 }
 
 .pure-g {
@@ -73,6 +78,7 @@ html {
 .footer-container {
    font-size: 18px;
     height: auto;
+    max-width: 100%;
     background-size: 100%;
     background-image: url("../images/ocean.jpeg");
     background-position-y: -180px;

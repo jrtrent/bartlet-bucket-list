@@ -68,7 +68,7 @@ $.ajax({
    
 $.ajax({
     url: queryURL,
-    menthod: "GET"
+    method: "GET"
 })
 
 .then(function(videoresponse){
