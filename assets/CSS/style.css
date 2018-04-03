@@ -104,6 +104,23 @@ html {
     padding-top: 1em;
     padding-left: 15em;
 } */
+.footer-image {
+
+    height: auto;
+    background-image: url("..//Images/image8.jpg");
+    width: 100%;
+    /* padding-top: 1em;
+    padding-left: 15em; */
+}
+.txt-railway {
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.center-block a {
+   margin-bottom: 50px; 
+}
 
 /* .custom-restricted {
     margin-top: 25px;
