@@ -21,40 +21,56 @@ $(document).ready(() => {
         var email = $('#email').val();
         var password = $('#password').val();
         var auth = firebase.auth();
-        var promise = auth.signInWithEmailAndPassword(email, password);
+        var promise = auth.signInWithEmailAndPassword(email, password).then((user) => {
+            database.ref('Users').child(user.uid).set({
+                toVisit: [],
+                visited: []
+                //some more user data
+            });
+        });
         promise.catch(event => console.log(event.message));
+    })
+
+    // Sign-up event
+    $('#sign-up').on('click', event => {
+        event.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var auth = firebase.auth();
+        auth.createUserWithEmailAndPassword(email, password).then((user) => {
+            console.log(user)
+            database.ref().child('Users').child(user.uid).set({
+                toVisit: [],
+                visited: []
+                //some more user data
+            })
+        }).catch(event => console.log(event.message));
     })
 
     states = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"]
     for (var i = 0; i < states.length; i++) {
         var statebutton = $("<a>")
         console.log(statebutton);
-        statebutton.class("dropdown-item");
+        statebutton.addClass("dropdown-item");
         statebutton.text(states[i]);
         //statebutton.attr("href", "#");
         $("#statelist").append(statebutton);
     };
-
-
-
-   
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log(firebaseUser);
         if (firebaseUser) {
             console.log(firebaseUser + 'logged in');
-            console.log('UID', firebaseUser.uid);
+            console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
-            $("#bucket-list").empty();
-            if (!database.ref()){
-                database.ref('users/' + userID).set({
-                    username: name,
-                    email: email
-                    //some more user data
-                });
-            }
+            // WriteSidebar(database, UserID);
+
+            // database.ref(UserID).on('value', function (a, b) {
+            //     console.log(a)
+            //     console.log(b)
+            // })
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
@@ -63,9 +79,15 @@ $(document).ready(() => {
 
 })
 
+
 // Populate the sidebar with bucket list
 function WriteSidebar(bucketListDB, UID) {
+    // $("#bucket-list").empty();
 
+    // for (let i = 0; i < array.length; i++) {
+        
+        
+    // }
 }
 
 var selectstate = "VA" //$(this).val();
@@ -105,6 +127,7 @@ $.ajax({
         $("#parkinfo").append(parkinfo);
 
     });
+
 
 
 
