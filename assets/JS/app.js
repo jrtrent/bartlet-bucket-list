@@ -68,18 +68,16 @@ $(document).ready(() => {
             UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
             $("#bucket-list").empty();
-            // if (!database.ref()){
-                database.ref('users/' + UserID).set({
-                    username: 'dasf',
-                    email: 'asdf'
-                    //some more user data
-                });
+            database.ref('users/' + UserID).set({
+                username: 'dasf',
+                email: 'asdf'
+                //some more user data
+            });
 
-                database.ref('users/' + UserID + '/parks').push({
-                    name: 'yellowstone',
-                    visited: false
-                })
-            // }
+            database.ref('users/' + UserID + '/parks').push({
+                name: 'yellowstone',
+                visited: false
+            })
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
@@ -94,8 +92,8 @@ function WriteSidebar(bucketListDB, UID) {
     // $("#bucket-list").empty();
 
     // for (let i = 0; i < array.length; i++) {
-        
-        
+
+
     // }
 }
 
