@@ -19,7 +19,7 @@ $(document).ready(() => {
     $('#sign-in').on('click', event => {
         event.preventDefault();
         var email = $('#email').val();
-        var password = $('#password').val();
+        var password = $('#password').val().trim();
         var auth = firebase.auth();
         var promise = auth.signInWithEmailAndPassword(email, password);
         promise.catch(event => console.log(event.message));
