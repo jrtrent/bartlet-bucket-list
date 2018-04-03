@@ -21,7 +21,14 @@ $(document).ready(() => {
         var email = $('#email').val();
         var password = $('#password').val().trim();
         var auth = firebase.auth();
-        var promise = auth.signInWithEmailAndPassword(email, password);
+        console.log('uadhgfkuhsdaku')
+        var promise = auth.signInWithEmailAndPassword(email, password).then((user) => {
+            database.ref('Users').child(user.uid).set({
+                toVisit: [],
+                visited: []
+                //some more user data
+            });
+        });
         promise.catch(event => console.log(event.message));
     })
 
@@ -33,35 +40,49 @@ $(document).ready(() => {
     for (var i = 0; i < states.length; i++) {
         var statebutton = $("<option>");
         statebutton.attr("value", states[i]);
-        statebutton.text(states[i]);
-        $("#statelist").append(statebutton);
-    };
+    }
 
-
-
-
-
+    // Sign-up event
+    $('#sign-up').on('click', event => {
+        event.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var auth = firebase.auth();
+        auth.createUserWithEmailAndPassword(email, password).then((user) => {
+            console.log(user)
+            database.ref().child('Users').child(user.uid).set({
+                toVisit: [],
+                visited: []
+                //some more user data
+            })
+        }).catch(event => console.log(event.message));
+    })
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
+        console.log('adsfsadfjl')
         console.log(firebaseUser);
         if (firebaseUser) {
             console.log(firebaseUser + 'logged in');
-            console.log('UID', firebaseUser.uid);
+            console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
             $("#bucket-list").empty();
-            if (!database.ref()){
-                database.ref('users/' + userID).set({
-                    username: name,
-                    email: email
-                    //some more user data
-                });
-            }
+            database.ref('users/' + UserID).set({
+                username: 'dasf',
+                email: 'asdf'
+                //some more user data
+            });
+
+            database.ref('users/' + UserID + '/parks').push({
+                name: 'yellowstone',
+                visited: false
+            })
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
         }
+    })
     // firebase.auth().onAuthStateChanged(firebaseUser => {
     //console.log(firebaseUser);
     // if (firebaseUser) {
@@ -111,10 +132,7 @@ $(document).ready(() => {
             });
     })
 
-
-});
-
-
+})
 
 $(".natparks").on("click", function () {
     $("#parkinfo").empty();
@@ -138,6 +156,7 @@ $(".natparks").on("click", function () {
 
         });
 });
+
 
 
 
