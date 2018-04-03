@@ -81,4 +81,10 @@ html {
     color: white;
 }
 
+.natspark {
+    cursor: pointer;
+}
 
+p:hover{
+    background: white;
+}
