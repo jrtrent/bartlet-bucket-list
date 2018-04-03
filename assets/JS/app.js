@@ -21,6 +21,7 @@ $(document).ready(() => {
         var email = $('#email').val();
         var password = $('#password').val();
         var auth = firebase.auth();
+        console.log('uadhgfkuhsdaku')
         var promise = auth.signInWithEmailAndPassword(email, password).then((user) => {
             database.ref('Users').child(user.uid).set({
                 toVisit: [],
@@ -68,11 +69,16 @@ $(document).ready(() => {
             // $('#sign-out').removeClass('hide');
             $("#bucket-list").empty();
             // if (!database.ref()){
-                database.ref('users/' + userID).set({
-                    username: name,
-                    email: email
+                database.ref('users/' + UserID).set({
+                    username: 'dasf',
+                    email: 'asdf'
                     //some more user data
                 });
+
+                database.ref('users/' + UserID + '/parks').push({
+                    name: 'yellowstone',
+                    visited: false
+                })
             // }
         } else {
             console.log('not logged in')
