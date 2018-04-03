@@ -59,18 +59,21 @@ $(document).ready(() => {
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
+        console.log('adsfsadfjl')
         console.log(firebaseUser);
         if (firebaseUser) {
             console.log(firebaseUser + 'logged in');
             console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
-            // WriteSidebar(database, UserID);
-
-            // database.ref(UserID).on('value', function (a, b) {
-            //     console.log(a)
-            //     console.log(b)
-            // })
+            $("#bucket-list").empty();
+            // if (!database.ref()){
+                database.ref('users/' + userID).set({
+                    username: name,
+                    email: email
+                    //some more user data
+                });
+            // }
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
