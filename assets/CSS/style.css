@@ -30,6 +30,10 @@ html {
     background-size: 225%;
     background-image: url("../images/image2.jpg");
     color: white;
+    /* opacity: 0.5; */
+    filter: alpha(opacity=50); 
+    /* For IE8 and earlier */
+    
 
 }
 
