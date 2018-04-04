@@ -40,7 +40,9 @@ $(document).ready(() => {
     for (var i = 0; i < states.length; i++) {
         var statebutton = $("<option>");
         statebutton.attr("value", states[i]);
-    }
+        statebutton.text(states[i]);
+        $("#statelist").append(statebutton)
+    };
 
     // Sign-up event
     $('#sign-up').on('click', event => {
@@ -147,13 +149,16 @@ $("body").on("click", ".natparks", function () {
 
         .then(function (response) {
             console.log(response);
+            var addtolist =$("<button>");
+            addtolist.attr("type", "button");
+            addtolist.addClass("btn btn-primary");
+            addtolist.text("Add to List");
             var parkinfo = $("<p>");
             parkinfo.text(response.data["0"].fullName + "p" +
-                response.data["0"].description + "p" +
-                response.data["0"].url + "p" +
-                response.data["0"].weatherInfo);
-            $("#parkinfo").append(parkinfo);
-
+            response.data["0"].description + "p" +
+            response.data["0"].url + "p" +
+            response.data["0"].weatherInfo);
+            $("#parkinfo").append(parkinfo, addtolist); 
         });
 });
 
