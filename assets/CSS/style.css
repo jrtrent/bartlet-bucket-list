@@ -78,12 +78,14 @@ html {
 }
 
 .footer-container {
-   font-size: 18px;
+   font-size: 10px;
     height: auto;
     background-size: 100%;
     background-image: url("../images/ocean.jpeg");
     background-position-y: -180px;
     color: white;
+    padding-top: -100px;
+
     
 }
 

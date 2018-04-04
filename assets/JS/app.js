@@ -134,7 +134,7 @@ $(document).ready(() => {
 
 })
 
-$(".natparks").on("click", function () {
+$("body").on("click", ".natparks", function () {
     $("#parkinfo").empty();
     var parkcode = $(this).val()
     console.log(parkcode)
