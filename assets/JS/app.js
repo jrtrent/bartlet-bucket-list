@@ -151,6 +151,7 @@ $("body").on("click", ".natparks", function () {
             console.log(response);
             var addtolist =$("<button>");
             addtolist.attr("type", "button");
+            addtolist.attr('id', 'add-to-bucket');
             addtolist.addClass("btn btn-primary");
             addtolist.text("Add to List");
             var parkinfo = $("<p>");
@@ -162,6 +163,9 @@ $("body").on("click", ".natparks", function () {
         });
 });
 
+$('body').on('click', 'add-to-bucket', event => {
+    
+})
 
 
 
