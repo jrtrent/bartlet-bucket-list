@@ -63,7 +63,7 @@ $(document).ready(() => {
         console.log('adsfsadfjl')
         console.log(firebaseUser);
         if (firebaseUser) {
-            console.log(firebaseUser + 'logged in');
+            console.log('logged in!');
             console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
             // $('#sign-out').removeClass('hide');
