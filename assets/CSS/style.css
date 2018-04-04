@@ -21,7 +21,7 @@ html {
     background-size: 100%;
     background-image: url("../images/image.webp");
         opacity: 0.5;
-        filter: alpha(opacity=50); 
+        /* filter: alpha(opacity=50);  */
         /* For IE8 and earlier 
     /* background-image: url("../images/image7.jpg");
     background-position-y: -10px; */
@@ -34,7 +34,7 @@ html {
     background-image: url("../images/image2.jpg");
     color: white;
     opacity: 0.5;
-    filter: alpha(opacity=100); 
+    filter: alpha(opacity=50); 
     /* For IE8 and earlier */
     
 
