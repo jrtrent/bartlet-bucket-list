@@ -62,7 +62,6 @@ $(document).ready(() => {
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
-        console.log('adsfsadfjl')
         console.log(firebaseUser);
         if (firebaseUser) {
             console.log('logged in!');
@@ -75,11 +74,6 @@ $(document).ready(() => {
                 email: 'asdf'
                 //some more user data
             });
-
-            database.ref('users/' + UserID + '/parks').push({
-                name: 'yellowstone',
-                visited: false
-            })
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
@@ -135,6 +129,14 @@ $(document).ready(() => {
             });
     })
 
+    // Add park to bucket list when button is pressed
+    $('body').on('click', '#add-to-bucket', function(event) {
+        console.log($(this).attr('data-park-name'));
+        database.ref('users/' + UserID + '/parks').push({
+            name: $(this).attr('data-park-name'),
+            visited: false
+        })
+    })
 })
 
 $("body").on("click", ".natparks", function () {
@@ -179,6 +181,7 @@ $("body").on("click", ".natparks", function () {
         });
 
 })
+
 
 
 
