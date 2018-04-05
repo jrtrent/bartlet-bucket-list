@@ -129,6 +129,7 @@ $(document).ready(() => {
                     parkname.text(response.data[i].fullName);
                     parkname.addClass("natparks");
                     parkname.attr("id", response.data[i].parkCode);
+                    parkname.data('park',response.data[i].parkCode )
                     $("#parkinfo").append(parkname);
                 }
             });
@@ -138,7 +139,7 @@ $(document).ready(() => {
 
 $("body").on("click", ".natparks", function () {
     $("#parkinfo").empty();
-    var parkcode = $(this).val()
+    var parkcode = $(this).attr('id')
     console.log(parkcode)
     var queryURL = "https://developer.nps.gov/api/v1/parks?parkCode=" + parkcode + "&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
 
@@ -149,18 +150,37 @@ $("body").on("click", ".natparks", function () {
 
         .then(function (response) {
             console.log(response);
-            var addtolist =$("<button>");
-            addtolist.attr("type", "button");
-            addtolist.addClass("btn btn-primary");
-            addtolist.text("Add to List");
-            var parkinfo = $("<p>");
-            parkinfo.text(response.data["0"].fullName + "p" +
-            response.data["0"].description + "p" +
-            response.data["0"].url + "p" +
-            response.data["0"].weatherInfo);
-            $("#parkinfo").append(parkinfo, addtolist); 
+                $("#parkinfo").empty();
+                addtolist = $("<button>");
+                addtolist.attr("type", "button");
+                addtolist.addClass("btn btn-primary");
+                addtolist.text("Add to List");
+                var parkname = response.data["0"].fullName;
+                var parkdescription = response.data["0"].description;
+                var parkwebsite = response.data["0"].url;
+                var parkweather = response.data["0"].weatherInfo
+                $("#parkinfo").append("<h2>" + parkname +"<h2>",
+                "<p>" + parkdescription + "<p>", 
+                "<p>" + parkwebsite + "</p>",
+                "<p>" + parkweather + "<p>",
+                 addtolist);
+                 var youtube =$("<iframe>");
+                 youtube.attr({
+                     id: "ytplayer",
+                     type: "text/html",
+                     width: "340",
+                     height:"160",
+                     src: "https://www.youtube.com/embed?listType=search&list=" + parkname,
+                     frameborder: "0",
+                 });
+                 $("#parkinfo").prepend(youtube);
+            
+           
         });
-});
+
+})
+
+
 
 
 
