@@ -129,7 +129,7 @@ $(document).ready(() => {
     })
 
     // Add park to bucket list when button is pressed
-    $('body').on('click', '#add-to-bucket', event => {
+    $('body').on('click', '#add-to-bucket', function(event) {
         console.log($(this).attr('data-park-name'));
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
