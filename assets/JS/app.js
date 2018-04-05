@@ -52,11 +52,11 @@ $(document).ready(() => {
         var auth = firebase.auth();
         auth.createUserWithEmailAndPassword(email, password).then((user) => {
             console.log(user)
-            database.ref().child('Users').child(user.uid).set({
-                toVisit: [],
-                visited: []
-                //some more user data
-            })
+            // database.ref().child('Users').child(user.uid).set({
+            //     toVisit: [],
+            //     visited: []
+            //some more user data
+            // })
         }).catch(event => console.log(event.message));
     })
 
@@ -67,13 +67,16 @@ $(document).ready(() => {
             console.log('logged in!');
             console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
-            // $('#sign-out').removeClass('hide');
             $("#bucket-list").empty();
-            database.ref('users/' + UserID).set({
-                username: 'dasf',
-                email: 'asdf'
-                //some more user data
-            });
+            database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
+                console.log(childSnapshot);
+            })
+            // $('#sign-out').removeClass('hide');
+            // database.ref('users/' + UserID).set({
+            //     parkname 'dasf',
+            //     email: 'asdf'
+            // some more user data
+            // });
         } else {
             console.log('not logged in')
             // $('#sign-out').addClass('hide');
@@ -123,14 +126,14 @@ $(document).ready(() => {
                     parkname.text(response.data[i].fullName);
                     parkname.addClass("natparks");
                     parkname.attr("id", response.data[i].parkCode);
-                    parkname.data('park',response.data[i].parkCode )
+                    parkname.data('park', response.data[i].parkCode)
                     $("#parkinfo").append(parkname);
                 }
             });
     })
 
     // Add park to bucket list when button is pressed
-    $('body').on('click', '#add-to-bucket', function(event) {
+    $('body').on('click', '#add-to-bucket', function (event) {
         console.log($(this).attr('data-park-name'));
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
@@ -152,32 +155,34 @@ $("body").on("click", ".natparks", function () {
 
         .then(function (response) {
             console.log(response);
-                $("#parkinfo").empty();
-                addtolist = $("<button>");
-                addtolist.attr("type", "button");
-                addtolist.addClass("btn btn-primary");
-                addtolist.text("Add to List");
-                var parkname = response.data["0"].fullName;
-                var parkdescription = response.data["0"].description;
-                var parkwebsite = response.data["0"].url;
-                var parkweather = response.data["0"].weatherInfo
-                $("#parkinfo").append("<h2>" + parkname +"<h2>",
-                "<p>" + parkdescription + "<p>", 
+            $("#parkinfo").empty();
+            addtolist = $("<button>");
+            addtolist.attr("type", "button");
+            addtolist.attr('id', 'add-to-bucket')
+            addtolist.attr('data-park-name', response.data["0"].fullName);
+            addtolist.addClass("btn btn-primary");
+            addtolist.text("Add to List");
+            var parkname = response.data["0"].fullName;
+            var parkdescription = response.data["0"].description;
+            var parkwebsite = response.data["0"].url;
+            var parkweather = response.data["0"].weatherInfo
+            $("#parkinfo").append("<h2>" + parkname + "<h2>",
+                "<p>" + parkdescription + "<p>",
                 "<p>" + parkwebsite + "</p>",
                 "<p>" + parkweather + "<p>",
-                 addtolist);
-                 var youtube =$("<iframe>");
-                 youtube.attr({
-                     id: "ytplayer",
-                     type: "text/html",
-                     width: "340",
-                     height:"160",
-                     src: "https://www.youtube.com/embed?listType=search&list=" + parkname,
-                     frameborder: "0",
-                 });
-                 $("#parkinfo").prepend(youtube);
-            
-           
+                addtolist);
+            var youtube = $("<iframe>");
+            youtube.attr({
+                id: "ytplayer",
+                type: "text/html",
+                width: "340",
+                height: "160",
+                src: "https://www.youtube.com/embed?listType=search&list=" + parkname,
+                frameborder: "0",
+            });
+            $("#parkinfo").prepend(youtube);
+
+
         });
 
 })
