@@ -21,7 +21,7 @@ $(document).ready(() => {
         var email = $('#email').val();
         var password = $('#password').val().trim();
         var auth = firebase.auth();
-        console.log('uadhgfkuhsdaku')
+        // console.log('uadhgfkuhsdaku')
         var promise = auth.signInWithEmailAndPassword(email, password).then((user) => {
             database.ref('Users').child(user.uid).set({
                 toVisit: [],
@@ -51,7 +51,7 @@ $(document).ready(() => {
         var password = $('#password').val();
         var auth = firebase.auth();
         auth.createUserWithEmailAndPassword(email, password).then((user) => {
-            console.log(user)
+            // console.log(user)
             // database.ref().child('Users').child(user.uid).set({
             //     toVisit: [],
             //     visited: []
@@ -68,8 +68,11 @@ $(document).ready(() => {
             console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
             $("#bucket-list").empty();
+            $("#bucket-list").append("<h2> Bucket List </h2>");
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
-                console.log(childSnapshot);
+                console.log(childSnapshot.val());
+                var newP = childSnapshot.val().name;
+                $("#bucket-list").append(newP);
             })
             // $('#sign-out').removeClass('hide');
             // database.ref('users/' + UserID).set({
@@ -112,7 +115,7 @@ $(document).ready(() => {
     $("#statelist").on("click", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
-        console.log(selectstate);
+        // console.log(selectstate);
         var queryURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + selectstate + "&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
 
         $.ajax({
@@ -134,7 +137,7 @@ $(document).ready(() => {
 
     // Add park to bucket list when button is pressed
     $('body').on('click', '#add-to-bucket', function (event) {
-        console.log($(this).attr('data-park-name'));
+        // console.log($(this).attr('data-park-name'));
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
             visited: false
@@ -145,7 +148,7 @@ $(document).ready(() => {
 $("body").on("click", ".natparks", function () {
     $("#parkinfo").empty();
     var parkcode = $(this).attr('id')
-    console.log(parkcode)
+    // console.log(parkcode)
     var queryURL = "https://developer.nps.gov/api/v1/parks?parkCode=" + parkcode + "&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
 
     $.ajax({
@@ -154,7 +157,7 @@ $("body").on("click", ".natparks", function () {
     })
 
         .then(function (response) {
-            console.log(response);
+            // console.log(response);
             $("#parkinfo").empty();
             addtolist = $("<button>");
             addtolist.attr("type", "button");
