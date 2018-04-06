@@ -10,7 +10,6 @@ html {
     background-image: url("../Images/pink_rice.png");
 }
 .head-1 {
-    /* padding-top: .5em; */
     font-size: 36px;
     height: 2em;
     margin: 10px;
@@ -18,12 +17,13 @@ html {
 }
 .black-bar {
     background-color: rgba(0, 2, 131, 0.219);
-    /* background-color: rgba(0, 0, 0, 0.219); */
     margin: 0;
 
+}
 
-
-
+#choose-state {
+    color: rgb(214, 96, 243);
+    font-size: 24px;
 }
 
 .pure-u-2-3 {
@@ -34,6 +34,7 @@ html {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: 700;
     font-size: 16px;
+    overflow-y: scroll
    /* background-image: url("../images/image7.jpg");
     background-position-y: -10px; */
 }
@@ -49,11 +50,9 @@ html {
 }
 
 .pure-g {
-    /* background-color: lightgrey; */
-    /* border: 1px solid gray; */
     height: 40em;
     min-height: 600px;
-
+    overflow: hidden;
 }
 
 
@@ -64,7 +63,6 @@ html {
     background-color: #333;
     color: white;
     border: 1px solid white;
-    
 }
 
 .checkbox, .radio {
@@ -96,8 +94,8 @@ html {
     color: white;
     padding-top: -100px;
     margin-top: 10px;
-    
 }
+
 .sign-in-color {
     color:black;
     border-bottom: white solid 1px;
@@ -108,6 +106,14 @@ html {
 .sidebar-image {
     color: white;
     margin: 2em;
+}
+
+#statelist {
+    color:rgb(26, 46, 46);
+}
+#parkinfo {
+    color: rgb(255, 255, 255);
+
 }
 
 .footer-image {
@@ -136,5 +142,5 @@ html {
 }
 
 p:hover{
-    background: white;
+    background:;
 }
