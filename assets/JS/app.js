@@ -68,7 +68,7 @@ $(document).ready(() => {
             console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
             $("#bucket-list").empty();
-            $("#bucket-list").append("<h2> Bucket List </h2>");
+            $("#bucket-list").append("<h2> My Bucket List </h2>");
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
                 console.log(childSnapshot.val());
                 var newP = childSnapshot.val().name;
