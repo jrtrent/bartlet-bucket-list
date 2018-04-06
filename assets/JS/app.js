@@ -72,7 +72,7 @@ $(document).ready(() => {
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
                 console.log(childSnapshot.val());
                 var newP = childSnapshot.val().name;
-                $("#bucket-list").append(newP);
+                $("#bucket-list").append('<p>' + newP + '</p>');
             })
             // $('#sign-out').removeClass('hide');
             // database.ref('users/' + UserID).set({
@@ -141,7 +141,9 @@ $(document).ready(() => {
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
             visited: false
-        })
+        }) 
+        // var parkName = $(this).attr('data-park-name');
+        // $("#bucket-list").append("<p>" + parkName + "</p>");
     })
 })
 
