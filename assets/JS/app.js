@@ -106,7 +106,7 @@ $(document).ready(() => {
     //function WriteSidebar(bucketListDB, UID) {
 
     //}
-    $("#statelist").on("click", function () {
+    $("#statelist").on("change", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
         console.log(selectstate);
@@ -123,14 +123,14 @@ $(document).ready(() => {
                     parkname.text(response.data[i].fullName);
                     parkname.addClass("natparks");
                     parkname.attr("id", response.data[i].parkCode);
-                    parkname.data('park',response.data[i].parkCode )
+                    parkname.data('park', response.data[i].parkCode)
                     $("#parkinfo").append(parkname);
                 }
             });
     })
 
     // Add park to bucket list when button is pressed
-    $('body').on('click', '#add-to-bucket', function(event) {
+    $('body').on('click', '#add-to-bucket', function (event) {
         console.log($(this).attr('data-park-name'));
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
@@ -152,32 +152,49 @@ $("body").on("click", ".natparks", function () {
 
         .then(function (response) {
             console.log(response);
-                $("#parkinfo").empty();
-                addtolist = $("<button>");
-                addtolist.attr("type", "button");
-                addtolist.addClass("btn btn-primary");
-                addtolist.text("Add to List");
-                var parkname = response.data["0"].fullName;
-                var parkdescription = response.data["0"].description;
-                var parkwebsite = response.data["0"].url;
-                var parkweather = response.data["0"].weatherInfo
-                $("#parkinfo").append("<h2>" + parkname +"<h2>",
-                "<p>" + parkdescription + "<p>", 
+            $("#parkinfo").empty();
+            addtolist = $("<button>");
+            addtolist.attr("type", "button");
+            addtolist.addClass("btn btn-primary");
+            addtolist.text("Add to List");
+            var parkname = response.data["0"].fullName;
+            var parkdescription = response.data["0"].description;
+            var parkwebsite = response.data["0"].url;
+            var parkweather = response.data["0"].weatherInfo
+            $("#parkinfo").append("<h2>" + parkname + "<h2>",
+                "<p>" + parkdescription + "<p>",
                 "<p>" + parkwebsite + "</p>",
                 "<p>" + parkweather + "<p>",
-                 addtolist);
-                 var youtube =$("<iframe>");
-                 youtube.attr({
-                     id: "ytplayer",
-                     type: "text/html",
-                     width: "340",
-                     height:"160",
-                     src: "https://www.youtube.com/embed?listType=search&list=" + parkname,
-                     frameborder: "0",
-                 });
-                 $("#parkinfo").prepend(youtube);
-            
-           
+                addtolist);
+
+            var apikey = "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg";
+            console.log(parkname);
+
+            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +
+            "&part=snippet,id&q=" + parkname + "&order=viewCount";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+                maxResults: '2',
+
+            })
+
+                .then(function (response) {
+                    console.log(response);
+                    var videoid = response.items["0"].id.videoId
+                    var youtube = $("<iframe>");
+                    youtube.attr({
+                        id: "ytplayer",
+                        type: "text/html",
+                        width: "340",
+                        height: "160",
+                        src: "http://www.youtube.com/embed/" + videoid +"?autoplay=1",
+                        frameborder: "0",
+                    })
+                    $("#parkinfo").prepend(youtube);
+                });
+
         });
 
 })
