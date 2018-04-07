@@ -72,11 +72,17 @@ $(document).ready(() => {
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
                 console.log(childSnapshot.val());
                 if (childSnapshot.val().visited === false) {
-                    var newP = childSnapshot.val().name;
-                    // var newButton = $("<button>").text('Visited')
-                    //     .addClass('pure-button pure-button-primary visited-button')
-                    $("#bucket-list").append('<p>' + newP + '</p>' +
-                        '<button class= "pure-button pure-button-primary visited-button">Visited</button><br><br>');
+                    var parkName = childSnapshot.val().name;
+                    var snapshotParent = childSnapshot.ref.getKey();
+                    var newP = $('<p>').text(parkName)
+                        .attr('data-parent-ref', snapshotParent)
+                    console.log(snapshotParent);
+                    var newButton = $("<button>").text('Visited')
+                        .addClass('pure-button pure-button-primary visited-button')
+                        .attr('data-parent-ref', snapshotParent);
+                    $("#bucket-list").append(newP)
+                        .append(newButton)
+                        .append('<br><br>')
                 }
             })
         } else {
@@ -84,33 +90,12 @@ $(document).ready(() => {
             $('#sign-out').addClass('hide');
         }
     })
-    // firebase.auth().onAuthStateChanged(firebaseUser => {
-    //console.log(firebaseUser);
-    // if (firebaseUser) {
-    // console.log(firebaseUser + 'logged in');
-    //  console.log('UID', firebaseUser.uid);
-    // UserID = firebaseUser.uid;
-    // $('#sign-out').removeClass('hide');
-    // $("#bucket-list").empty();
-    //if (!database.ref() {
-    //  database.ref('users/' + userID).set({
-    //    username: name,
-    //  email: email
-    //some more user data
-    //});
-    // }
-    //} else {
-    //  console.log('not logged in')
-    // $('#sign-out').addClass('hide');
-    // }
-    // })
 
-    //})
-
-    // Populate the sidebar with bucket list
-    //function WriteSidebar(bucketListDB, UID) {
-
-    //}
+    $('#sign-out').on('click', event => {
+        firebase.auth().signOut();
+        $("#bucket-list").empty();
+        $("#bucket-list").append('<form class="pure-form pure-form-stacked"> <fieldset> <div class="sign-in-color">Sign-In</div> <label for="email">Email</label> <input id="email" type="email" placeholder="Email"> <label for="password">Password</label> <input id="password" type="password" placeholder="Password"> <button id="sign-in" type="submit" class="pure-button pure-button-primary">Sign in</button> <button id="sign-up" type="submit" class="button-secondary pure-button">Sign up</button> </fieldset> </form>');
+    })
 
     $("#statelist").on("change", function () {
         $("#parkinfo").empty();
@@ -143,6 +128,22 @@ $(document).ready(() => {
             visited: false
         })
     })
+
+    // Change visited from false to true
+    $('body').on('click', '.visited-button', function (event) {
+        console.log($(this).attr('data-parent-ref'));
+        var parentRef = $(this).attr('data-parent-ref')
+        database.ref('users/' + UserID + '/parks/' + parentRef).update({
+            visited: true
+        })
+        database.ref('users/' + UserID + '/parks/' +parentRef).on("value", function (snapshot) {
+            if (snapshot.val().visited){
+                $('[data-parent-ref~=' +snapshot.ref.getKey()+ ']').remove();
+            } 
+        })
+    })    
+
+
 })
 
 $("body").on("click", ".natparks", function () {
@@ -163,6 +164,8 @@ $("body").on("click", ".natparks", function () {
             addtolist.attr("type", "button");
             addtolist.addClass("btn btn-primary");
             addtolist.text("Add to List");
+            addtolist.attr("id", "add-to-bucket")
+            addtolist.attr("data-park-name", response.data["0"].fullName);
             var parkname = response.data["0"].fullName;
             var parkdescription = response.data["0"].description;
             var parkwebsite = response.data["0"].url;
