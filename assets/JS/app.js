@@ -71,49 +71,38 @@ $(document).ready(() => {
             $("#bucket-list").append("<h2> My Bucket List </h2>");
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
                 console.log(childSnapshot.val());
-                var newP = childSnapshot.val().name;
-                $("#bucket-list").append('<p>' + newP + '</p>');
-                $(".pure-1-3").addClass("alt");
+                if (childSnapshot.val().visited === false) {
+
+                    // var newP = childSnapshot.val().name;
+                    // $("#bucket-list").append('<p>' + newP + '</p>');
+                    // $(".pure-1-3").addClass("alt");
+
+                    var parkName = childSnapshot.val().name;
+                    var snapshotParent = childSnapshot.ref.getKey();
+                    var newP = $('<p>').text(parkName)
+                        .attr('data-parent-ref', snapshotParent)
+                    console.log(snapshotParent);
+                    var newButton = $("<button>").text('Visited')
+                        .addClass('pure-button pure-button-primary visited-button')
+                        .attr('data-parent-ref', snapshotParent);
+                    $("#bucket-list").append(newP)
+                        .append(newButton)
+                        .append('<br><br>')
+                }
             })
-            // $('#Sign-out').removeClass('hide');
-            // database.ref('users/' + UserID).set({
-            //     parkname 'dasf',
-            //     email: 'asdf'
-            // // some more user data
-            // });
         } else {
             console.log('not logged in')
-            // $('#Sign-out').addClass('hide');
+            $('#sign-out').addClass('hide');
         }
     })
-    // firebase.auth().onAuthStateChanged(firebaseUser => {
-    //console.log(firebaseUser);
-    // if (firebaseUser) {
-    // console.log(firebaseUser + 'logged in');
-    //  console.log('UID', firebaseUser.uid);
-    // UserID = firebaseUser.uid;
-    // $('#Sign-out').removeClass('hide');
-    // $("#bucket-list").empty();
-    //if (!database.ref() {
-    //  database.ref('users/' + userID).set({
-    //    username: name,
-    //  email: email
-    //some more user data
-    //});
-    // }
-    //} else {
-    //  console.log('not logged in')
-    // $('#Sign-out').addClass('hide');
-    // }
-    // })
 
-    //})
+    $('#sign-out').on('click', event => {
+        firebase.auth().signOut();
+        $("#bucket-list").empty();
+        $("#bucket-list").append('<form class="pure-form pure-form-stacked"> <fieldset> <div class="sign-in-color">Sign-In</div> <label for="email">Email</label> <input id="email" type="email" placeholder="Email"> <label for="password">Password</label> <input id="password" type="password" placeholder="Password"> <button id="sign-in" type="submit" class="pure-button pure-button-primary">Sign in</button> <button id="sign-up" type="submit" class="button-secondary pure-button">Sign up</button> </fieldset> </form>');
+    })
 
-    // Populate the sidebar with bucket list
-    //function WriteSidebar(bucketListDB, UID) {
-
-    //}
-    $("#statelist").on("click", function () {
+    $("#statelist").on("change", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
         // console.log(selectstate);
@@ -138,7 +127,7 @@ $(document).ready(() => {
 
     // Add park to bucket list when button is pressed
     $('body').on('click', '#add-to-bucket', function (event) {
-        // console.log($(this).attr('data-park-name'));
+        console.log($(this).attr('data-park-name'));
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
             visited: false
@@ -146,6 +135,22 @@ $(document).ready(() => {
         // var parkName = $(this).attr('data-park-name');
         // $("#bucket-list").append("<p>" + parkName + "</p>");
     })
+
+    // Change visited from false to true
+    $('body').on('click', '.visited-button', function (event) {
+        console.log($(this).attr('data-parent-ref'));
+        var parentRef = $(this).attr('data-parent-ref')
+        database.ref('users/' + UserID + '/parks/' + parentRef).update({
+            visited: true
+        })
+        database.ref('users/' + UserID + '/parks/' +parentRef).on("value", function (snapshot) {
+            if (snapshot.val().visited){
+                $('[data-parent-ref~=' +snapshot.ref.getKey()+ ']').remove();
+            } 
+        })
+    })    
+
+
 })
 
 $("body").on("click", ".natparks", function () {
@@ -160,36 +165,51 @@ $("body").on("click", ".natparks", function () {
     })
 
         .then(function (response) {
-            // console.log(response);
+            console.log(response);
             $("#parkinfo").empty();
             addtolist = $("<button>");
             addtolist.attr("type", "button");
-            addtolist.attr('id', 'add-to-bucket')
-            addtolist.attr('data-park-name', response.data["0"].fullName);
             addtolist.addClass("btn btn-primary");
             addtolist.text("Add to List");
+            addtolist.attr("id", "add-to-bucket")
+            addtolist.attr("data-park-name", response.data["0"].fullName);
             var parkname = response.data["0"].fullName;
             var parkdescription = response.data["0"].description;
             var parkwebsite = response.data["0"].url;
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
-                "<p>" + parkwebsite + "</p>",
+                "<a target='_blank' href=" + parkwebsite +">"+ parkwebsite +"</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
-            var youtube = $("<iframe>");
-            youtube.attr({
-                id: "ytplayer",
-                type: "text/html",
-                width: "340",
-                height: "160",
-                src: "https://www.youtube.com/embed?listType=search&list=" + parkname,
-                frameborder: "0",
-            });
-            $("#parkinfo").prepend(youtube);
 
+            var apikey = "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg";
+            console.log(parkname);
 
+            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey + "&forUsername=GoTraveler" +
+                "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
 
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+                maxResults: '2',
+
+            })
+
+                .then(function (response) {
+                    console.log(response);
+                    var videoid = response.items["0"].id.videoId
+                    var youtube = $("<iframe>");
+                    youtube.attr({
+                        id: "ytplayer",
+                        type: "text/html",
+                        width: "340",
+                        height: "160",
+                        src: "http://www.youtube.com/embed/" + videoid + "?autoplay=1",
+                        frameborder: "0",
+                    })
+                    $("#parkinfo").prepend(youtube);
+                });
 
         });
 

@@ -140,6 +140,6 @@ background-image: url("../Images/Image4.jpg");
 }
 
 p:hover{
-    background: white;
+    cursor: default;
 }
 
