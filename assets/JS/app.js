@@ -112,7 +112,7 @@ $(document).ready(() => {
 
     //}
 
-    $("#statelist").on("click", function () {
+    $("#statelist").on("change", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
         console.log(selectstate);
@@ -169,15 +169,15 @@ $("body").on("click", ".natparks", function () {
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
-                "<a href=" + parkwebsite + ">"  + parkwebsite + "</a>",
+                "<a target='_blank' href=" + parkwebsite +">"+ parkwebsite +"</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
 
             var apikey = "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg";
             console.log(parkname);
 
-            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +"&forUsername=GoTraveler" +
-            "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
+            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey + "&forUsername=GoTraveler" +
+                "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
 
             $.ajax({
                 url: queryURL,
@@ -195,7 +195,7 @@ $("body").on("click", ".natparks", function () {
                         type: "text/html",
                         width: "340",
                         height: "160",
-                        src: "http://www.youtube.com/embed/" + videoid +"?autoplay=1",
+                        src: "http://www.youtube.com/embed/" + videoid + "?autoplay=1",
                         frameborder: "0",
                     })
                     $("#parkinfo").prepend(youtube);
