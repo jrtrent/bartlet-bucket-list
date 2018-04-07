@@ -106,7 +106,7 @@ $(document).ready(() => {
     //function WriteSidebar(bucketListDB, UID) {
 
     //}
-    $("#statelist").on("change", function () {
+    $("#statelist").on("click", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
         console.log(selectstate);
@@ -163,15 +163,15 @@ $("body").on("click", ".natparks", function () {
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
-                "<p>" + parkwebsite + "</p>",
+                "<a href=" + parkwebsite + ">"  + parkwebsite + "</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
 
             var apikey = "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg";
             console.log(parkname);
 
-            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +
-            "&part=snippet,id&q=" + parkname + "&order=viewCount";
+            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +"&forUsername=GoTraveler" +
+            "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
 
             $.ajax({
                 url: queryURL,
