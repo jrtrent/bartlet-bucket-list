@@ -57,7 +57,6 @@ $(document).ready(() => {
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
-        console.log(firebaseUser);
         $('#sign-out').removeClass('hide');
         if (firebaseUser) {
             console.log('logged in!');
@@ -66,7 +65,6 @@ $(document).ready(() => {
             $("#bucket-list").empty();
             $("#bucket-list").append("<h2> My Bucket List </h2>");
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
-                console.log(childSnapshot.val());
                 if (childSnapshot.val().visited === false) {
 
                     var newP = childSnapshot.val().name;
