@@ -168,6 +168,7 @@ $("body").on("click", ".natparks", function () {
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
                 "<a href=" + parkwebsite + ">" + parkwebsite + "</a>",
+                "<a target='_blank' href=" + parkwebsite +">"+ parkwebsite +"</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
 
