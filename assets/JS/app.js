@@ -32,7 +32,7 @@ $(document).ready(() => {
         promise.catch(event => console.log(event.message));
     })
 
-    states = ["","AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
+    states = ["", "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
         "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI",
         "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH",
         "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT",
@@ -71,47 +71,20 @@ $(document).ready(() => {
             $("#bucket-list").append("<h2> My Bucket List </h2>");
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
                 console.log(childSnapshot.val());
-                var newP = childSnapshot.val().name;
-                $("#bucket-list").append('<p>' + newP + '</p>');
+                if (childSnapshot.val().visited === false) {
+                    var newP = childSnapshot.val().name;
+                    // var newButton = $("<button>").text('Visited')
+                    //     .addClass('pure-button pure-button-primary visited-button')
+                    $("#bucket-list").append('<p>' + newP + '</p>' +
+                        '<button class= "pure-button pure-button-primary visited-button">Visited</button><br><br>');
+                }
             })
-            // $('#sign-out').removeClass('hide');
-            // database.ref('users/' + UserID).set({
-            //     parkname 'dasf',
-            //     email: 'asdf'
-            // some more user data
-            // });
         } else {
             console.log('not logged in')
-            // $('#sign-out').addClass('hide');
+            $('#sign-out').addClass('hide');
         }
     })
-    // firebase.auth().onAuthStateChanged(firebaseUser => {
-    //console.log(firebaseUser);
-    // if (firebaseUser) {
-    // console.log(firebaseUser + 'logged in');
-    //  console.log('UID', firebaseUser.uid);
-    // UserID = firebaseUser.uid;
-    // $('#sign-out').removeClass('hide');
-    // $("#bucket-list").empty();
-    //if (!database.ref() {
-    //  database.ref('users/' + userID).set({
-    //    username: name,
-    //  email: email
-    //some more user data
-    //});
-    // }
-    //} else {
-    //  console.log('not logged in')
-    // $('#sign-out').addClass('hide');
-    // }
-    // })
 
-    //})
-
-    // Populate the sidebar with bucket list
-    //function WriteSidebar(bucketListDB, UID) {
-
-    //}
     $("#statelist").on("click", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
@@ -141,7 +114,7 @@ $(document).ready(() => {
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
             visited: false
-        }) 
+        })
         // var parkName = $(this).attr('data-park-name');
         // $("#bucket-list").append("<p>" + parkName + "</p>");
     })
