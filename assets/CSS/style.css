@@ -129,7 +129,10 @@ html {
     font-weight: bold;
     font-size: 15px;
 }
+.logout {
+    float: right;
 
+}
 .center-block a {
    margin-bottom: 50px; 
 }
