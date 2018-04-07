@@ -120,6 +120,14 @@ background-image: url("../Images/Image4.jpg");
     padding-bottom: .75em;
 }
 
+#email {
+    color: black;
+}
+
+#password {
+    color: black;
+}
+
 .sidebar-image {
     color: white;
     margin: 2em;
