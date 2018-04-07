@@ -71,7 +71,7 @@ $(document).ready(() => {
 
                     var newP = childSnapshot.val().name;
                     $("#bucket-list").append('<p>' + newP + '</p>');
-                    $(".pure-1-3").addClass("alt");
+                    $(".pure-u-1-3").addClass("alt");
 
                     var parkName = childSnapshot.val().name;
                     var snapshotParent = childSnapshot.ref.getKey();
