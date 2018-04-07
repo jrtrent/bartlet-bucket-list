@@ -142,5 +142,5 @@ html {
 }
 
 p:hover{
-    background:;
+    cursor: default;
 }

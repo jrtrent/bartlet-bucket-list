@@ -90,6 +90,33 @@ $(document).ready(() => {
             $('#sign-out').addClass('hide');
         }
     })
+    // firebase.auth().onAuthStateChanged(firebaseUser => {
+    //console.log(firebaseUser);
+    // if (firebaseUser) {
+    // console.log(firebaseUser + 'logged in');
+    //  console.log('UID', firebaseUser.uid);
+    // UserID = firebaseUser.uid;
+    // $('#sign-out').removeClass('hide');
+    // $("#bucket-list").empty();
+    //if (!database.ref() {
+    //  database.ref('users/' + userID).set({
+    //    username: name,
+    //  email: email
+    //some more user data
+    //});
+    // }
+    //} else {
+    //  console.log('not logged in')
+    // $('#sign-out').addClass('hide');
+    // }
+    // })
+
+    //})
+
+    // Populate the sidebar with bucket list
+    //function WriteSidebar(bucketListDB, UID) {
+
+    //}
 
     // sign-out of firebase
     $('#sign-out').on('click', event => {
@@ -173,15 +200,15 @@ $("body").on("click", ".natparks", function () {
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
-                "<p>" + parkwebsite + "</p>",
+                "<a href=" + parkwebsite + ">"  + parkwebsite + "</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
 
             var apikey = "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg";
             console.log(parkname);
 
-            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +
-            "&part=snippet,id&q=" + parkname + "&order=viewCount";
+            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +"&forUsername=GoTraveler" +
+            "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
 
             $.ajax({
                 url: queryURL,
