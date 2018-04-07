@@ -171,7 +171,7 @@ $("body").on("click", ".natparks", function () {
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
-                "<a href=" + parkwebsite + ">" + parkwebsite + "</a>",
+                "<a href=" + parkwebsite + "></a>",
                 "<a target='_blank' href=" + parkwebsite +">"+ parkwebsite +"</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
