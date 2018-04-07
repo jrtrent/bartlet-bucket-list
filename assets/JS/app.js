@@ -16,20 +16,19 @@ $(document).ready(() => {
     var userID = "";
 
     // Sign-in event
-    $('#sign-in').on('click', event => {
+    $('body').on('click', '#sign-in' ,  event => {
         event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val().trim();
         var auth = firebase.auth();
         console.log('uadhgfkuhsdaku')
         var promise = auth.signInWithEmailAndPassword(email, password).then((user) => {
-            database.ref('Users').child(user.uid).set({
-                toVisit: [],
-                visited: []
-                //some more user data
-            });
+
         });
-        promise.catch(event => console.log(event.message));
+        promise.catch(event => {
+
+            console.log(event.message)
+        });
     })
 
     states = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
@@ -52,17 +51,14 @@ $(document).ready(() => {
         var auth = firebase.auth();
         auth.createUserWithEmailAndPassword(email, password).then((user) => {
             console.log(user)
-            database.ref().child('Users').child(user.uid).set({
-                toVisit: [],
-                visited: []
-                //some more user data
-            })
+
         }).catch(event => console.log(event.message));
     })
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log(firebaseUser);
+        $('#sign-out').removeClass('hide');
         if (firebaseUser) {
             console.log('logged in!');
             console.log('UID ', firebaseUser.uid);
@@ -74,15 +70,14 @@ $(document).ready(() => {
                 if (childSnapshot.val().visited === false) {
                     var parkName = childSnapshot.val().name;
                     var snapshotParent = childSnapshot.ref.getKey();
-                    var newP = $('<p>').text(parkName)
-                        .attr('data-parent-ref', snapshotParent)
-                    console.log(snapshotParent);
+                    var newP = $('<p>').text(parkName);
                     var newButton = $("<button>").text('Visited')
-                        .addClass('pure-button pure-button-primary visited-button')
-                        .attr('data-parent-ref', snapshotParent);
-                    $("#bucket-list").append(newP)
+                        .addClass('pure-button pure-button-primary visited-button');
+                    var newDiv = $('<div>').attr('data-parent-ref', snapshotParent);
+                    newDiv.append(newP)
                         .append(newButton)
-                        .append('<br><br>')
+                        .append('<br><br>');
+                    $("#bucket-list").append(newDiv)
                 }
             })
         } else {
@@ -97,7 +92,7 @@ $(document).ready(() => {
         $("#bucket-list").append('<form class="pure-form pure-form-stacked"> <fieldset> <div class="sign-in-color">Sign-In</div> <label for="email">Email</label> <input id="email" type="email" placeholder="Email"> <label for="password">Password</label> <input id="password" type="password" placeholder="Password"> <button id="sign-in" type="submit" class="pure-button pure-button-primary">Sign in</button> <button id="sign-up" type="submit" class="button-secondary pure-button">Sign up</button> </fieldset> </form>');
     })
 
-    $("#statelist").on("click", function () {
+    $("#statelist").on("change", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
         console.log(selectstate);
@@ -131,17 +126,17 @@ $(document).ready(() => {
 
     // Change visited from false to true
     $('body').on('click', '.visited-button', function (event) {
-        console.log($(this).attr('data-parent-ref'));
-        var parentRef = $(this).attr('data-parent-ref')
+        console.log($(this).parent().attr('data-parent-ref'));
+        var parentRef = $(this).parent().attr('data-parent-ref')
         database.ref('users/' + UserID + '/parks/' + parentRef).update({
             visited: true
         })
-        database.ref('users/' + UserID + '/parks/' +parentRef).on("value", function (snapshot) {
-            if (snapshot.val().visited){
-                $('[data-parent-ref~=' +snapshot.ref.getKey()+ ']').remove();
-            } 
+        database.ref('users/' + UserID + '/parks/' + parentRef).on("value", function (snapshot) {
+            if (snapshot.val().visited) {
+                $('[data-parent-ref~=' + snapshot.ref.getKey() + ']').remove();
+            }
         })
-    })    
+    })
 
 
 })
@@ -172,15 +167,15 @@ $("body").on("click", ".natparks", function () {
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
-                "<a href=" + parkwebsite + ">"  + parkwebsite + "</a>",
+                "<a href=" + parkwebsite + ">" + parkwebsite + "</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
 
             var apikey = "AIzaSyAWRVHG2OAqTmPVRW1n1bOKYhkvPzDkXEg";
             console.log(parkname);
 
-            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey +"&forUsername=GoTraveler" +
-            "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
+            var queryURL = "https://www.googleapis.com/youtube/v3/search?&key=" + apikey + "&forUsername=GoTraveler" +
+                "&part=snippet,id&q=" + parkname + "GoTraveler|National Geographic";
 
             $.ajax({
                 url: queryURL,
@@ -198,7 +193,7 @@ $("body").on("click", ".natparks", function () {
                         type: "text/html",
                         width: "340",
                         height: "160",
-                        src: "http://www.youtube.com/embed/" + videoid +"?autoplay=1",
+                        src: "http://www.youtube.com/embed/" + videoid + "?autoplay=1",
                         frameborder: "0",
                     })
                     $("#parkinfo").prepend(youtube);
