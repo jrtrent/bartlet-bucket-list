@@ -69,9 +69,9 @@ $(document).ready(() => {
                 console.log(childSnapshot.val());
                 if (childSnapshot.val().visited === false) {
 
-                    // var newP = childSnapshot.val().name;
-                    // $("#bucket-list").append('<p>' + newP + '</p>');
-                    // $(".pure-1-3").addClass("alt");
+                    var newP = childSnapshot.val().name;
+                    $("#bucket-list").append('<p>' + newP + '</p>');
+                    $(".pure-1-3").addClass("alt");
 
                     var parkName = childSnapshot.val().name;
                     var snapshotParent = childSnapshot.ref.getKey();
