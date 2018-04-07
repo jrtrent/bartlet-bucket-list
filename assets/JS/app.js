@@ -90,35 +90,7 @@ $(document).ready(() => {
             $('#sign-out').addClass('hide');
         }
     })
-    // firebase.auth().onAuthStateChanged(firebaseUser => {
-    //console.log(firebaseUser);
-    // if (firebaseUser) {
-    // console.log(firebaseUser + 'logged in');
-    //  console.log('UID', firebaseUser.uid);
-    // UserID = firebaseUser.uid;
-    // $('#sign-out').removeClass('hide');
-    // $("#bucket-list").empty();
-    //if (!database.ref() {
-    //  database.ref('users/' + userID).set({
-    //    username: name,
-    //  email: email
-    //some more user data
-    //});
-    // }
-    //} else {
-    //  console.log('not logged in')
-    // $('#sign-out').addClass('hide');
-    // }
-    // })
 
-    //})
-
-    // Populate the sidebar with bucket list
-    //function WriteSidebar(bucketListDB, UID) {
-
-    //}
-
-    // sign-out of firebase
     $('#sign-out').on('click', event => {
         firebase.auth().signOut();
         $("#bucket-list").empty();
