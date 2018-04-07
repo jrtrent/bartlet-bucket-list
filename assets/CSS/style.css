@@ -33,6 +33,7 @@ html {
 }
 .statelist {
     font-size: 12px;
+
 }
 
 .pure-u-2-3 {
@@ -154,3 +155,7 @@ p:hover{
     cursor: default;
 }
 
+#dropdown {
+    color : black;
+    font: 14px;
+}
