@@ -67,16 +67,21 @@ $(document).ready(() => {
             console.log('logged in!');
             console.log('UID ', firebaseUser.uid);
             UserID = firebaseUser.uid;
-            // $('#sign-out').removeClass('hide');
             $("#bucket-list").empty();
-            database.ref('users/' + UserID).set({
-                username: 'dasf',
-                email: 'asdf'
-                //some more user data
-            });
+            $("#bucket-list").append("<h2> My Bucket List </h2>");
+            database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
+                console.log(childSnapshot.val());
+                if (childSnapshot.val().visited === false) {
+                    var newP = childSnapshot.val().name;
+                    // var newButton = $("<button>").text('Visited')
+                    //     .addClass('pure-button pure-button-primary visited-button')
+                    $("#bucket-list").append('<p>' + newP + '</p>' +
+                        '<button class= "pure-button pure-button-primary visited-button">Visited</button><br><br>');
+                }
+            })
         } else {
             console.log('not logged in')
-            // $('#sign-out').addClass('hide');
+            $('#sign-out').addClass('hide');
         }
     })
     // firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -106,6 +111,7 @@ $(document).ready(() => {
     //function WriteSidebar(bucketListDB, UID) {
 
     //}
+
     $("#statelist").on("click", function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
