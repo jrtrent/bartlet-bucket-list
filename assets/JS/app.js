@@ -97,7 +97,7 @@ $(document).ready(() => {
         $("#bucket-list").append('<form class="pure-form pure-form-stacked"> <fieldset> <div class="sign-in-color">Sign-In</div> <label for="email">Email</label> <input id="email" type="email" placeholder="Email"> <label for="password">Password</label> <input id="password" type="password" placeholder="Password"> <button id="sign-in" type="submit" class="pure-button pure-button-primary">Sign in</button> <button id="sign-up" type="submit" class="button-secondary pure-button">Sign up</button> </fieldset> </form>');
     })
 
-    $("#statelist").on("change", function () {
+    $("#statelist").on('change', function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
         console.log(selectstate);
