@@ -16,23 +16,22 @@ $(document).ready(() => {
     var userID = "";
 
     // Sign-in event
-    $('#sign-in').on('click', event => {
+    $('body').on('click', '#sign-in' ,  event => {
         event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val().trim();
         var auth = firebase.auth();
-        console.log('uadhgfkuhsdaku')
+        // console.log('uadhgfkuhsdaku')
         var promise = auth.signInWithEmailAndPassword(email, password).then((user) => {
-            database.ref('Users').child(user.uid).set({
-                toVisit: [],
-                visited: []
-                //some more user data
-            });
+
         });
-        promise.catch(event => console.log(event.message));
+        promise.catch(event => {
+
+            console.log(event.message)
+        });
     })
 
-    states = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
+    states = ["","AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
         "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI",
         "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH",
         "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT",
@@ -52,17 +51,14 @@ $(document).ready(() => {
         var auth = firebase.auth();
         auth.createUserWithEmailAndPassword(email, password).then((user) => {
             console.log(user)
-            database.ref().child('Users').child(user.uid).set({
-                toVisit: [],
-                visited: []
-                //some more user data
-            })
+
         }).catch(event => console.log(event.message));
     })
 
     // Realtime auth listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log(firebaseUser);
+        $('#sign-out').removeClass('hide');
         if (firebaseUser) {
             console.log('logged in!');
             console.log('UID ', firebaseUser.uid);
@@ -72,17 +68,21 @@ $(document).ready(() => {
             database.ref('users/' + UserID + '/parks').on("child_added", function (childSnapshot) {
                 console.log(childSnapshot.val());
                 if (childSnapshot.val().visited === false) {
+
+                    var newP = childSnapshot.val().name;
+                    $("#bucket-list").append('<p>' + newP + '</p>');
+                    $(".pure-u-1-3").addClass("alt");
+
                     var parkName = childSnapshot.val().name;
                     var snapshotParent = childSnapshot.ref.getKey();
-                    var newP = $('<p>').text(parkName)
-                        .attr('data-parent-ref', snapshotParent)
-                    console.log(snapshotParent);
+                    var newP = $('<p>').text(parkName);
                     var newButton = $("<button>").text('Visited')
-                        .addClass('pure-button pure-button-primary visited-button')
-                        .attr('data-parent-ref', snapshotParent);
-                    $("#bucket-list").append(newP)
+                        .addClass('pure-button pure-button-primary visited-button');
+                    var newDiv = $('<div>').attr('data-parent-ref', snapshotParent);
+                    newDiv.append(newP)
                         .append(newButton)
-                        .append('<br><br>')
+                        .append('<br><br>');
+                    $("#bucket-list").append(newDiv)
                 }
             })
         } else {
@@ -100,7 +100,7 @@ $(document).ready(() => {
     $("#statelist").on('change', function () {
         $("#parkinfo").empty();
         var selectstate = $(this).val();
-        console.log(selectstate);
+        // console.log(selectstate);
         var queryURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + selectstate + "&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
 
         $.ajax({
@@ -126,22 +126,24 @@ $(document).ready(() => {
         database.ref('users/' + UserID + '/parks').push({
             name: $(this).attr('data-park-name'),
             visited: false
-        })
+        }) 
+        // var parkName = $(this).attr('data-park-name');
+        // $("#bucket-list").append("<p>" + parkName + "</p>");
     })
 
     // Change visited from false to true
     $('body').on('click', '.visited-button', function (event) {
-        console.log($(this).attr('data-parent-ref'));
-        var parentRef = $(this).attr('data-parent-ref')
+        console.log($(this).parent().attr('data-parent-ref'));
+        var parentRef = $(this).parent().attr('data-parent-ref')
         database.ref('users/' + UserID + '/parks/' + parentRef).update({
             visited: true
         })
-        database.ref('users/' + UserID + '/parks/' +parentRef).on("value", function (snapshot) {
-            if (snapshot.val().visited){
-                $('[data-parent-ref~=' +snapshot.ref.getKey()+ ']').remove();
-            } 
+        database.ref('users/' + UserID + '/parks/' + parentRef).on("value", function (snapshot) {
+            if (snapshot.val().visited) {
+                $('[data-parent-ref~=' + snapshot.ref.getKey() + ']').remove();
+            }
         })
-    })    
+    })
 
 
 })
@@ -149,7 +151,7 @@ $(document).ready(() => {
 $("body").on("click", ".natparks", function () {
     $("#parkinfo").empty();
     var parkcode = $(this).attr('id')
-    console.log(parkcode)
+    // console.log(parkcode)
     var queryURL = "https://developer.nps.gov/api/v1/parks?parkCode=" + parkcode + "&api_key=GlsypCqWXX4ZbgvdJZXJULl2rnm4b18QkUM9oakw";
 
     $.ajax({
@@ -172,6 +174,7 @@ $("body").on("click", ".natparks", function () {
             var parkweather = response.data["0"].weatherInfo
             $("#parkinfo").append("<h2>" + parkname + "<h2>",
                 "<p>" + parkdescription + "<p>",
+                "<a href=" + parkwebsite + ">" + parkwebsite + "</a>",
                 "<a target='_blank' href=" + parkwebsite +">"+ parkwebsite +"</a>",
                 "<p>" + parkweather + "<p>",
                 addtolist);
