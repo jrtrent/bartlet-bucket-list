@@ -70,7 +70,6 @@ $(document).ready(() => {
                 if (childSnapshot.val().visited === false) {
 
                     var newP = childSnapshot.val().name;
-                    $("#bucket-list").append('<p>' + newP + '</p>');
                     $(".pure-u-1-3").addClass("alt");
 
                     var parkName = childSnapshot.val().name;
